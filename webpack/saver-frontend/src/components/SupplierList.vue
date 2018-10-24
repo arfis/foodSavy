@@ -1,26 +1,34 @@
 <template>
-  <div class="supplier-list">
-    <div class="loading" v-if="loading">Loading...</div>
-    <div v-if="error" class="error">
-      {{ error }}
-    </div>
-    <!--
-      giving the post container a unique key triggers transitions
-      when the post id changes.
-    -->
+  <ApolloQuery :query="query">
+    <template slot-scope="{ result: { loading, error, data } }">
+      <div class="supplier-list">
+        <div class="loading" v-if="loading">Loading...</div>
+        <div v-if="error" class="error">
+          {{ error }}
+        </div>
+        <!--
+          giving the post container a unique key triggers transitions
+          when the post id changes.
+        -->
+        DATA:
+        <section v-if="data">
+          {{data}}
+          <div class="suppliers" v-if="suppliers && suppliers.length">
+            <SupplierTile v-for="supplier in data.allCompanies" :key="supplier.id"
+                          v-bind:item="supplier">
+            </SupplierTile>
+          </div>
+        </section>
+        <p v-else>No food left!</p>
 
-    <div class="suppliers" v-if="suppliers && suppliers.length">
-      <SupplierTile v-for="supplier in suppliers" :key="supplier.id"
-                    v-bind:item="supplier">
-      </SupplierTile>
-    </div>
-    <p v-else>No food left!</p>
-  </div>
+      </div>
+    </template>
+  </ApolloQuery>
 </template>
-
 <script>
   import {getSuppliers} from '../mock/api'
   import SupplierTile from "./SupplierTile";
+  import {GET_COMPANIES} from "../queries.js";
 
   export default {
     name: 'SupplierList',
@@ -30,6 +38,7 @@
         loading: false,
         suppliers: [],
         error: null,
+        query: GET_COMPANIES
       }
     },
     created() {

@@ -4,10 +4,10 @@
       <img :src="item.thumbnail"/>
     </div>
     <div class="content">
-      <h4>{{item.store}}</h4>
+      <h4>{{item.name}}</h4>
       <ul class="types">
         <li v-for="product in item.products">
-          {{product}}
+          {{product.title}}
         </li>
       </ul>
       <p>{{item.description}}</p>

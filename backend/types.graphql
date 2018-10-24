@@ -11,6 +11,29 @@ type User @model {
   # posts: [Post!]! @relation(name: "UserPosts")
 }
 
+type Company @model {
+  id: ID! @isUnique
+  name: String
+  description: String
+  imgUrl: String
+  thumbnail: String
+    products: [Product!]! @relation(name: "CompanyProducts")
+  # Uncomment below - you can declare relations between models like this
+
+  # posts: [Post!]! @relation(name: "UserPosts")
+}
+
+ type Product @model {
+   id: ID! @isUnique
+   title: String!
+   price: Float!
+   count: Int!
+   currency: String!
+   foodUrl: String!
+   available: Boolean!
+   # Every relation also required a back-relation (to determine 1:1, 1:n or n:m)
+   company: Company! @relation(name: "CompanyProducts")
+ }
 
 # Uncomment the model below as well
 

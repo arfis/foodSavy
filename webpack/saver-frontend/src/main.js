@@ -13,7 +13,7 @@ import 'vue-material/dist/vue-material.min.css'
 import 'vue-material/dist/theme/default.css'
 
 const client = new ApolloClient({
-    uri: "https://api.graph.cool/simple/v1/cjexem1he3let0153tpc5ftu1"
+    uri: "http://localhost:60000/simple/v1/cjn3jmxq7000r012974x2atg4\n"
 });
 
 const apolloProvider = new VueApollo({
